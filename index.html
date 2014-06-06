@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>4 Shame us</title>
+    </head>
+    <body>
+        <section contenteditable="true" id="editArea">
+            {{content}}
+        </section>
+        <script>
+            (function() {
+            var ws = new WebSocket("ws:127.0.0.1:8888/ws");
+            var editArea = document.getElementById('editArea');
+            ws.onclose = function(evt) { console.log("Connection lost"); };
+            editArea.addEventListener('DOMSubtreeModified', function(e) {
+            ws.send(this.innerHTML);
+            })
+            
+            })()
+        </script>
+    </body>
+</html>
