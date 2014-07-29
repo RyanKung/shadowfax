@@ -5,29 +5,29 @@ import tornado.websocket
 import os
 from jinja2 import Template
 
-path = os.path.dirname(__file__)
-static_path = path
-tpml = path+'/index.html'
-content = path+'/content.txt'
-
 class MainHandler(tornado.web.RequestHandler):
-    tpml = path+'/index.html'
-    content = path+'/content.txt'
+    tpml = './index.html'
+    content = './content.txt'
     def get(self):
-        tpml = open(self.tpml, 'r')
-        content = open(self.content, 'r')
-        self.write(Template(tpml.read()).render(content=content.read()))
+        tpml = open(self.tpml, 'r').read()
+        content = open(self.content, 'r').read().decode('utf-8')
+        try:
+            self.write(Template(tpml).render(content=content))
+        except:
+            import pdb; pdb.set_trace()
 
 class WSHandler(tornado.websocket.WebSocketHandler):
-    content = path+'/content.txt'
+    content = './content.txt'
     def open(self):
         print 'new connection'
         self.write_message("Hello World")
       
     def on_message(self, message):
-        print 'message received %s' % message
         content = open(self.content, 'w')
-        content.write(message)
+        try:
+            content.write(message.encode('utf-8'))
+        except:
+            import pdb; pdb.set_trace()
         content.close()
 
  
