@@ -13,9 +13,9 @@
         </section>
         <script>
             (function() {
-            var ws = new WebSocket("ws:127.0.0.1:8888/ws");
+            var ws = new WebSocket("ws:%s:8888/ws".replace("%s", window.location.origin));
             var editArea = document.getElementById('editArea');
-            ws.onclose = function(evt) { console.log("Connection lost"); };
+            ws.onclose = function(evt) { log.console("Connection lost"); };
             editArea.addEventListener('DOMSubtreeModified', function(e) {
             ws.send(this.innerHTML);
             })
