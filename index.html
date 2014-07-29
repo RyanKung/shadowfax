@@ -2,6 +2,10 @@
     <head>
         <meta charset="utf-8">
         <title>4 Shame us</title>
+        <style>
+          body { margin:0; padding: 0; background: #eee;}
+          body section {margin: 50 auto; width: 800px; padding: 50px; background:#fff;}
+        </style>
     </head>
     <body>
         <section contenteditable="true" id="editArea">
@@ -15,7 +19,6 @@
             editArea.addEventListener('DOMSubtreeModified', function(e) {
             ws.send(this.innerHTML);
             })
-            
             })()
         </script>
     </body>
